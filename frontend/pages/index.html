@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>E-Waste Detector - AI-Powered Waste Recognition</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="../globals.css">
+</head>
+
+<body class="overflow-hidden">
+  <!-- Navigation -->
+  <nav class="border-b border-gray-700 sticky top-0 z-50 backdrop-blur-md bg-opacity-80"
+    style="background-color: rgba(15, 23, 42, 0.8); height:56px;">
+    <div class="max-w-7xl mx-auto px-4 py-2 flex items-center justify-between" style="height:56px;">
+      <div class="flex items-center gap-2">
+        <div class="w-8 h-8 rounded-lg"
+          style="background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);"></div>
+        <span class="text-xl font-bold">E-Waste Detector</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <button class="btn-secondary px-3 py-1 text-sm">Documentation</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="flex flex-col items-center justify-center" style="height:calc(100vh - 56px);">
+    <div class="max-w-7xl w-full">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <!-- Left Content -->
+        <div class="space-y-8">
+          <div>
+            <h1 class="text-5xl lg:text-6xl font-bold leading-tight mb-6">
+              <span class="gradient-text">E-Waste Detector</span>
+            </h1>
+            <p class="text-xl font-semibold text-gray-300 mb-4">Smarter waste recognition for a sustainable future</p>
+          </div>
+
+          <p class="text-lg leading-relaxed text-gray-400">
+            Detect, analyze, and evaluate electronic waste with AI-powered vision. Our system identifies components,
+            estimates material composition, and calculates recyclable value — helping you recycle safely and
+            efficiently.
+          </p>
+
+          <div class="flex gap-4 pt-4">
+            <button id="startDetectingBtn" class="btn-primary text-lg px-8 py-3">Start Detecting</button>
+          </div>
+        </div>
+
+        <!-- Right Upload Card Section -->
+        <div class="space-y-6">
+          <!-- Upload Card Container -->
+          <div
+            style="background-color: var(--surface); border-radius: 16px; padding: 24px; border: 1px solid var(--border);">
+            <!-- Upload Area -->
+            <div class="mb-6">
+              <label for="fileInput" class="card-upload p-8 text-center cursor-pointer block relative overflow-hidden">
+                <div class="text-4xl mb-3">📁</div>
+                <p class="text-lg font-semibold mb-2">Upload Image</p>
+                <p class="text-sm text-gray-400">Drag and drop or click to select</p>
+                <input type="file" id="fileInput" class="input-file" accept="image/*">
+                <div id="filePreview" style="position: absolute; top: 0; left: 0; width: 100%;"></div>
+              </label>
+              <div id="detectBtnContainer"></div>
+            </div>
+
+            <!-- Divider -->
+            <div class="flex items-center gap-3 mb-6">
+              <div class="flex-1 h-px" style="background-color: var(--border);"></div>
+              <span class="text-sm text-gray-500">OR</span>
+              <div class="flex-1 h-px" style="background-color: var(--border);"></div>
+            </div>
+
+            <!-- Buttons -->
+            <div class="flex">
+              <button id="demoImageBtn" class="btn-secondary py-3 flex items-center justify-center gap-2 w-full">
+                <span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="lucide lucide-circuit-board-icon lucide-circuit-board">
+                    <rect width="18" height="18" x="3" y="3" rx="2" />
+                    <path d="M11 9h4a2 2 0 0 0 2-2V3" />
+                    <circle cx="9" cy="9" r="2" />
+                    <path d="M7 21v-4a2 2 0 0 1 2-2h4" />
+                    <circle cx="15" cy="15" r="2" />
+                  </svg></span>
+                <span>Use Demo Image</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Info Box -->
+          <div
+            style="background-color: rgba(16, 185, 129, 0.1); border: 1px solid var(--primary); border-radius: 12px; padding: 16px;">
+            <p class="text-sm text-gray-300">
+              <span class="font-semibold text-green-400">💡 Tip:</span> Upload a clear image of electronic waste for
+              best results. Our AI will analyze components and provide detailed insights.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- JavaScript -->
+  <script>
+    const DUMMY_IMAGE_URL = 'https://images.unsplash.com/photo-1633356122544-f134324ef6db?w=500&h=500&fit=crop';
+
+    const fileInput = document.getElementById('fileInput');
+    const filePreview = document.getElementById('filePreview');
+    const demoImageBtn = document.getElementById('demoImageBtn');
+    const startDetectingBtn = document.getElementById('startDetectingBtn');
+    const uploadCard = document.querySelector('.card-upload');
+    const detectBtnContainer = document.getElementById('detectBtnContainer');
+
+    // File selection
+    fileInput.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (file) displayImage(file);
+    });
+
+    // Drag and Drop
+    uploadCard.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      uploadCard.style.borderColor = 'var(--primary)';
+      uploadCard.style.backgroundColor = 'rgba(16, 185, 129, 0.1)';
+    });
+
+    uploadCard.addEventListener('dragleave', () => {
+      uploadCard.style.borderColor = 'var(--border)';
+      uploadCard.style.backgroundColor = 'transparent';
+    });
+
+    uploadCard.addEventListener('drop', (e) => {
+      e.preventDefault();
+      uploadCard.style.borderColor = 'var(--border)';
+      uploadCard.style.backgroundColor = 'transparent';
+
+      const files = e.dataTransfer.files;
+      if (files.length > 0) {
+        fileInput.files = files;
+        displayImage(files[0]);
+      }
+    });
+
+    // Demo Image
+    demoImageBtn.addEventListener('click', () => {
+      const img = new Image();
+      img.crossOrigin = 'anonymous';
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        canvas.width = img.width;
+        canvas.height = img.height;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0);
+        canvas.toBlob((blob) => displayImage(blob));
+      };
+      img.src = DUMMY_IMAGE_URL;
+    });
+
+    // Smooth scroll
+    startDetectingBtn.addEventListener('click', () => {
+      uploadCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    });
+
+    // Convert file to Base64
+    function fileToBase64(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      });
+    }
+
+    // Display image as background
+    function displayImage(file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const imageUrl = e.target.result;
+
+        // Set background
+        uploadCard.style.backgroundImage = `url('${imageUrl}')`;
+        uploadCard.classList.add('has-image');
+
+        // Fade out text/icons
+        uploadCard.querySelectorAll('div, p').forEach(el => {
+          el.style.opacity = '0';
+          el.style.transition = 'opacity 0.4s ease';
+        });
+
+        // Remove any previous notification
+        const prevMsg = document.getElementById('imageLoadedMsg');
+        if (prevMsg) prevMsg.remove();
+
+        // Show confirmation message above image inside label
+        filePreview.innerHTML = `
+          <div id="imageLoadedMsg" style="margin-top: 0; margin-bottom: 12px; padding: 16px; background-color: rgba(16, 185, 129, 0.25); border-radius: 10px; text-align: center; box-shadow: 0 2px 8px rgba(16,185,129,0.15); font-size: 1.1em; font-weight: bold; color: #22c55e; opacity: 1; transition: opacity 0.8s;">
+            ✓ Image loaded successfully<br><span style="font-size:0.9em; color:#4ade80;">Ready for analysis</span>
+          </div>
+        `;
+
+        setTimeout(() => {
+          const msg = document.getElementById('imageLoadedMsg');
+          if (msg) {
+            msg.style.opacity = '0';
+            setTimeout(() => { if (msg) msg.remove(); }, 900);
+          }
+        }, 2500);
+
+        // Show Start Detecting button below image
+        detectBtnContainer.innerHTML = `
+          <button id="startDetectBtn" class="btn-primary w-full py-3 mt-2 text-lg">Start Detecting</button>
+        `;
+
+        document.getElementById('startDetectBtn').onclick = async () => {
+          const file = document.getElementById('fileInput').files[0];
+          if (!file) return alert("Please upload an image first!");
+
+          const formData = new FormData();
+          formData.append("file", file);
+
+          try {
+            const res = await fetch("http://127.0.0.1:5000/detect", {
+              method: "POST",
+              body: formData,
+            });
+
+            if (!res.ok) throw new Error("Upload failed");
+            const data = await res.json();
+            if (!data.success) throw new Error("Detection failed");
+
+            // Redirect to loading screen (fake)
+            window.location.href = "loading.html";
+          } catch (err) {
+            console.error(err);
+            alert("Failed to upload or detect. Check Flask server.");
+          }
+        };
+
+      };
+      reader.readAsDataURL(file);
+    }
+  </script>
+</body>
+
+</html>
