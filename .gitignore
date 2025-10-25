@@ -35,7 +35,7 @@ ENV*/
 pip-log.txt
 pip-delete-this-directory.txt
 
-# Ignore model checkpoints or weights but keep README.md placeholders
+# Ignore model checkpoints or weights but keep README placeholders
 *.pt
 *.pth
 *.h5
@@ -47,7 +47,7 @@ dev/models/*       # ignore all model files
 !dev/models/regression/
 !dev/models/regression/README.md
 
-# Ignore static file outputs (like results & uploads) but keep README.md if needed
+# Ignore static file outputs but keep README placeholders
 backend/static/results/*
 backend/static/uploads/*
 !backend/static/results/README.md
@@ -63,31 +63,24 @@ backend/**/*.pyc
 # =========================
 # 🤖 Dev / Training
 # =========================
-# Datasets: ignore everything except README.md
+# Dataset folder: ignore everything except README.md
 dev/dataset/*
 !dev/dataset/README.md
 
-# Notebooks and training utils: ignore contents except README.md
-dev/models/regression/*
-!dev/models/regression/README.md
-dev/models/yolo/*
-!dev/models/yolo/README.md
+# Notebooks and training utils: ignore everything except README.md
 dev/notebooks/*
 !dev/notebooks/README.md
 dev/notebooks/.ipynb_checkpoints/
 dev/utils_training/*
 !dev/utils_training/README.md
 
-# Large notebook outputs
-*.ipynb_checkpoints
-*.out
-*.csv
-*.zip
-
 # =========================
 # ⚛️ Frontend (React)
 # =========================
-frontend/node_modules/
+# Ignore node_modules everywhere
+**/node_modules/
+
+# Ignore build outputs and caches
 frontend/dist/
 frontend/build/
 frontend/.vite/
