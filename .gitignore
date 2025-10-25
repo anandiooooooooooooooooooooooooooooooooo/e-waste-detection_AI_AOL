@@ -35,16 +35,23 @@ ENV*/
 pip-log.txt
 pip-delete-this-directory.txt
 
-# Ignore model checkpoints or weights
+# Ignore model checkpoints or weights but keep README.md placeholders
 *.pt
 *.pth
 *.h5
 *.ckpt
 *.onnx
+dev/models/*       # ignore all model files
+!dev/models/yolo/
+!dev/models/yolo/README.md
+!dev/models/regression/
+!dev/models/regression/README.md
 
-# Ignore static file outputs (like results & uploads)
-backend/static/results/
-backend/static/uploads/
+# Ignore static file outputs (like results & uploads) but keep README.md if needed
+backend/static/results/*
+backend/static/uploads/*
+!backend/static/results/README.md
+!backend/static/uploads/README.md
 
 # Ignore compiled bytecode or cache
 backend/**/*.pyc
@@ -56,14 +63,20 @@ backend/**/*.pyc
 # =========================
 # 🤖 Dev / Training
 # =========================
-# Datasets
-dev/dataset/
-!dev/dataset/README.md   # keep a placeholder
+# Datasets: ignore everything except README.md
+dev/dataset/*
+!dev/dataset/README.md
 
-# Models, checkpoints, and training utils
-dev/models/
-dev/utils_training/
+# Notebooks and training utils: ignore contents except README.md
+dev/models/regression/*
+!dev/models/regression/README.md
+dev/models/yolo/*
+!dev/models/yolo/README.md
+dev/notebooks/*
+!dev/notebooks/README.md
 dev/notebooks/.ipynb_checkpoints/
+dev/utils_training/*
+!dev/utils_training/README.md
 
 # Large notebook outputs
 *.ipynb_checkpoints
