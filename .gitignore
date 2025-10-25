@@ -1,0 +1,113 @@
+# =========================
+# 🧠 General
+# =========================
+# Logs and temp files
+logs/
+*.log
+*.tmp
+*.temp
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# =========================
+# 🧪 Backend (Python)
+# =========================
+__pycache__/
+*.py[cod]
+*.pyo
+*.so
+*.egg
+*.egg-info/
+.eggs/
+*.spec
+.Python
+env/
+venv/
+.venv/
+ENV/
+ENV*/
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Ignore model checkpoints or weights
+*.pt
+*.pth
+*.h5
+*.ckpt
+*.onnx
+
+# Ignore static file outputs (like results & uploads)
+backend/static/results/
+backend/static/uploads/
+
+# Ignore compiled bytecode or cache
+backend/**/*.pyc
+
+# Ignore database or local dev files
+*.db
+*.sqlite3
+
+# =========================
+# 🤖 Dev / Training
+# =========================
+# Datasets
+dev/dataset/
+!dev/dataset/README.md   # keep a placeholder or dataset description file
+
+# Models and checkpoints
+dev/models/
+dev/utils_training/
+dev/notebooks/.ipynb_checkpoints/
+
+# Large notebook outputs
+*.ipynb_checkpoints
+*.out
+*.csv
+*.zip
+
+# =========================
+# ⚛️ Frontend (React)
+# =========================
+frontend/node_modules/
+frontend/dist/
+frontend/build/
+frontend/.vite/
+frontend/.parcel-cache/
+frontend/.next/
+frontend/.cache/
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+
+# Environment files
+frontend/.env
+frontend/.env.local
+frontend/.env.development.local
+frontend/.env.test.local
+frontend/.env.production.local
+
+# =========================
+# 🧑‍💻 Editor / IDE
+# =========================
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# =========================
+# 📦 Optional Package Manager Locks (choose one)
+# =========================
+# If you only use npm, ignore others
+# yarn.lock
+# pnpm-lock.yaml
