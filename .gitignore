@@ -8,7 +8,6 @@ logs/
 *.temp
 npm-debug.log*
 yarn-debug.log*
-yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
@@ -59,9 +58,9 @@ backend/**/*.pyc
 # =========================
 # Datasets
 dev/dataset/
-!dev/dataset/README.md   # keep a placeholder or dataset description file
+!dev/dataset/README.md   # keep a placeholder
 
-# Models and checkpoints
+# Models, checkpoints, and training utils
 dev/models/
 dev/utils_training/
 dev/notebooks/.ipynb_checkpoints/
@@ -106,7 +105,7 @@ frontend/.env.production.local
 *.sw?
 
 # =========================
-# 📦 Optional Package Manager Locks (choose one)
+# 📦 Optional Package Manager Locks
 # =========================
 # If you only use npm, ignore others
 # yarn.lock
