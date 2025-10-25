@@ -1,0 +1,340 @@
+@import "tailwindcss";
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+/* ===========================
+   THEME VARIABLES (BLACK & WHITE)
+=========================== */
+:root {
+  --primary: #ffffff;
+  /* White for accents and highlights */
+  --primary-dark: #cccccc;
+  /* Light gray for hover states */
+  --background: #000000;
+  /* Pure black background */
+  --surface: #111111;
+  /* Slightly lighter black for surfaces */
+  --surface-light: #1f1f1f;
+  /* Light black/gray for secondary sections */
+  --text-primary: #ffffff;
+  /* White text */
+  --text-secondary: #b3b3b3;
+  /* Medium gray text */
+  --border: #333333;
+  /* Border gray */
+  --accent: #e5e5e5;
+  /* Subtle white-gray gradient accent */
+}
+
+/* ===========================
+   BASE STYLES
+=========================== */
+* {
+  font-family: 'Inter', sans-serif;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--text-primary);
+  margin: 0;
+}
+
+/* ===========================
+   ANIMATIONS
+=========================== */
+@keyframes scan {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+}
+
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.8);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes rotate-slow {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes progress {
+  0% {
+    width: 0%;
+  }
+
+  50% {
+    width: 70%;
+  }
+
+  100% {
+    width: 100%;
+  }
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===========================
+   ANIMATION CLASSES
+=========================== */
+.scan-line {
+  animation: scan 2s infinite;
+}
+
+.pulse-ring {
+  animation: pulse-ring 2s infinite;
+}
+
+.float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.rotate-slow {
+  animation: rotate-slow 8s linear infinite;
+}
+
+.progress-bar {
+  animation: progress 3s ease-in-out infinite;
+}
+
+section {
+  animation: fadeUp 0.8s ease-in-out;
+}
+
+/* ===========================
+   VISUAL EFFECTS
+=========================== */
+.glow {
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-bg {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+}
+
+/* ===========================
+   BUTTONS
+=========================== */
+.btn-primary {
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  color: #000000;
+  border: none;
+  border-radius: 12px;
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  opacity: 0.9;
+  transform: scale(1.03) translateY(-2px);
+  box-shadow: 0 8px 16px rgba(255, 255, 255, 0.2);
+}
+
+.btn-secondary {
+  background: transparent;
+  border: 2px solid var(--border);
+  color: var(--text-primary);
+  border-radius: 12px;
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.btn-secondary:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+  border-color: var(--primary);
+  transform: scale(1.03);
+}
+
+/* ===========================
+   INPUTS & PREVIEWS
+=========================== */
+.input-file,
+.camera-input {
+  display: none;
+}
+
+.preview-image {
+  max-width: 100%;
+  max-height: 300px;
+  border-radius: 8px;
+  margin-top: 12px;
+}
+
+/* ===========================
+   TIP BOX
+=========================== */
+.tip-box {
+  transition: 0.3s;
+}
+
+.tip-box:hover {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* ===========================
+   UPLOAD CARD (updated)
+=========================== */
+.card {
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 24px;
+}
+
+.detected-item {
+  background-color: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 16px;
+  transition: all 0.3s ease;
+}
+
+.detected-item:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+  border-color: var(--primary-dark);
+}
+
+.material-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.material-row:last-child {
+  border-bottom: none;
+}
+
+.price-highlight {
+  background-color: rgba(255, 255, 255, 0.05);
+  padding: 16px;
+  border-radius: 12px;
+  border-left: 4px solid var(--primary);
+  margin-top: 16px;
+}
+
+.chart-container {
+  position: relative;
+  height: 250px;
+  margin: 20px 0;
+}
+
+/* Upload card visuals */
+.card-upload,
+.upload-card {
+  background-color: var(--surface);
+  border: 2px dashed var(--border);
+  border-radius: 12px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.card-upload:hover,
+.upload-card:hover {
+  border-color: var(--primary);
+  background-color: rgba(255, 255, 255, 0.05);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.15);
+}
+
+/* JS drag-over state */
+.card-upload.drag-over {
+  border-color: var(--primary);
+  background-color: rgba(255, 255, 255, 0.05);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+}
+
+/* Overlay for readability */
+.card-upload::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 1;
+}
+
+.card-upload.has-image::before {
+  opacity: 1;
+}
+
+/* Inner content above overlay */
+.card-upload * {
+  position: relative;
+  z-index: 2;
+}
+
+/* Smooth fade-out text when background image appears */
+.card-upload.has-image div,
+.card-upload.has-image p {
+  transition: opacity 0.4s ease;
+}
+
+/* ===========================
+   MISC
+=========================== */
+section {
+  scroll-behavior: smooth;
+}
